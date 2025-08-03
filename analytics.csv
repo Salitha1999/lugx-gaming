@@ -1,0 +1,5 @@
+timestamp,page,element,depth
+2025-08-02T10:00:00Z,/index.html,BUTTON,0.5
+2025-08-02T10:01:00Z,/shop.html,A,0.7
+2025-08-02T10:02:00Z,/product.html,DIV,0.9
+2025-08-02T10:03:00Z,/contact.html,BUTTON,0.4

@@ -1,0 +1,15 @@
+{
+  "fileLocations": [
+    {
+      "URIs": [
+        "s3://msc-analytics-data-salithaperera/analytics.csv"
+      ]
+    }
+  ],
+  "globalUploadSettings": {
+    "format": "CSV",
+    "delimiter": ",",
+    "textqualifier": "\"",
+    "containsHeader": "true"
+  }
+}
