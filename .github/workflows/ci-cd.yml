@@ -8,7 +8,7 @@ on:
     - cron: "0 0 * * *" # runs daily at midnight
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout code
@@ -42,19 +42,3 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/analytics-service:latest ./frontend-app/analytics-service
           docker push ${{ secrets.DOCKER_USERNAME }}/analytics-service:latest
-
-      # Step 7: Deploy to Kubernetes (Rolling Update)
-      - name: Deploy to Kubernetes (Rolling)
-        run: |
-          kubectl set image deployment/lugx-frontend-deployment lugx-frontend-container=${{ secrets.DOCKER_USERNAME }}/frontend:latest --record
-          kubectl set image deployment/game-service game-service=${{ secrets.DOCKER_USERNAME }}/game-service:latest --record
-          kubectl set image deployment/order-service order-service=${{ secrets.DOCKER_USERNAME }}/order-service:latest --record
-          kubectl set image deployment/analytics-service analytics-service=${{ secrets.DOCKER_USERNAME }}/analytics-service:latest --record
-
-      # Step 8: Run Integration Tests
-      - name: Run Integration Tests
-        run: |
-          curl -f http://lugx-frontend-service:3000 || exit 1
-          curl -f http://game-service:8080/health || exit 1
-          curl -f http://order-service:8080/health || exit 1
-          curl -f http://analytics-service:6000/health || exit 1
